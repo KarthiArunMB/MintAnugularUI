@@ -1,0 +1,84 @@
+<dx-data-grid #grid id="gridContainer"
+    [dataSource]="employees"
+    keyExpr="ClientID"
+    [showColumnLines]="false"
+    [showRowLines]="true"
+    [showBorders]="true"
+    [hoverStateEnabled]="true"
+    [rowAlternationEnabled]="true"
+    [showSelectionControls]="true"
+    rowTemplate="MandatesRowTemplate">
+ 
+<dxo-selection mode="single"></dxo-selection>
+    <dxi-column dataField="JobTitle" caption="Job title"></dxi-column>
+    <dxi-column dataField="ClientName" caption="Client Name"></dxi-column>
+    <dxi-column dataField="WorkLocation"  caption="Work Location"></dxi-column>
+    <dxi-column dataField="DelegationDate" caption="Open Since" dataType="date"></dxi-column>
+    <dxi-column dataField="RequestedResourcesNumber"  caption="Postion Status"  dataType="date"></dxi-column>
+    <dxi-column dataField="Icons"  caption="" ></dxi-column>
+
+<div id="employeeInfo" *ngIf="grid.selectedRowKeys.length">
+  <p class="employeeNotes">{{grid.instance.getSelectedRowsData()[0].Notes}}</p>
+</div>
+
+<tbody class="dx-row" *dxTemplate="let row of 'MandatesRowTemplate'" >
+        <tr class="main-row">
+            <td >{{row.data.JobTitle}}</td>
+            <td>{{row.data.ClientName}}</td>
+            <td>{{row.data.WorkLocation}}</td>
+            <td>{{row.data.DelegationDate | date: "yyyy/MM/dd"}}</td>
+            <td>{{row.data.RequestedResourcesNumber}}</td>
+            <td > <div *ngIf="row.data.ClientID == grid.selectedRowKeys" >
+                <button class="fa fa-eye" (click)="PreviewMadates(row.data.ClientID)"></button>
+                <button class="fa fa-user-circle"(click)="MadatesEdit(row.data.ClientID)"></button>
+                <button class="fa fa-list"(click)="MadatesEdit(row.data.ClientID)"></button>
+                </div>
+            </td>
+        </tr>
+</tbody>
+
+
+</dx-data-grid>
+   
+
+
+
+
+
+
+<!-- 
+
+<div id="list-demo">
+    <div class="widget-container">
+        <dx-list #list
+            [dataSource]="tasks"
+            [height]="400"
+            [selectionMode]="selectionModeValue"
+            [selectAllMode]="selectAllModeVlaue"
+            [showSelectionControls]="true"
+            [selectedItemKeys]="[]">
+            
+        </dx-list>
+        <div class="selected-data">
+            <span class="caption">Selected IDs:</span>
+            <span>{{list.selectedItemKeys.join(", ")}}</span>
+        </div>
+    </div>
+    <div class="options">
+        <div class="caption">Options</div>
+        <div class="option">
+            <span>Selection Mode</span>
+            <dx-select-box
+                [items]="['none', 'single', 'multiple', 'all']"
+                [(value)]="selectionModeValue">
+            </dx-select-box>
+        </div>
+        <div class="option">
+            <span>Select All Mode</span>
+            <dx-select-box
+                [items]="['page', 'allPages']"
+                [(value)]="selectAllModeVlaue">
+            </dx-select-box>
+        </div>
+    </div>
+</div>  -->
